@@ -18,10 +18,6 @@
             margin: auto;
         }
 
-        canvas {
-            border: 1px solid #ccc;
-            margin-top: 10px;
-        }
     </style>
 
 </head>
@@ -29,58 +25,77 @@
     <h1>Привіт JavaScript!</h1>
 
     <div class="container">
-        <input type="file" id="uploadImage">
+        <button id="leftRotate">Left rotate</button>
+        <button id="getData">GetData</button>
+        <input type="file" id="uploadImage" accept="image/*">
         <br><br>
         <img id="image" src="/images/redhead.jpg" alt="Upload an image">
-        <!--<br>-->
-        <!--<button id="cropButton">Crop</button>-->
-        <!--<br><br>-->
-        <!--<canvas id="croppedCanvas"></canvas>-->
     </div>
 
-    <!--<script src="/js/cropper.min.js"></script>-->
     <script src="/js/cropper.min.js"></script>
     <script>
         let cropper;
+        let uploadedImageURL;
+        const leftRotate = document.getElementById("leftRotate");
         const image = document.getElementById('image');
         const uploadImage = document.getElementById('uploadImage');
-        //const cropButton = document.getElementById('cropButton');
-        //const croppedCanvas = document.getElementById('croppedCanvas');
+        const getData = document.getElementById('getData');
+
+        cropper = new Cropper(image, {
+            aspectRatio: 1, // співідношення сторін 1/1 тобто квадрат
+            viewMode: 1 //режим відображення
+        });
+
+        leftRotate.onclick = function (e) {
+            if (cropper) {
+                cropper.rotate(90);
+            }
+        }
+
+        getData.onclick = function(e) {
+            if (cropper) {
+                var base64 = cropper.getCroppedCanvas().toDataURL();
+                cropper.getCroppedCanvas().toBlob(function (blob) {
+                    var file_blob = new File([blob], "some_random_file_name.jpg");
+                    console.log("file: ", file_blob);
+                });
+                console.log("Get data url", base64);
+                //console.log("Get blob image", blob);
+            }
+        }
+
         uploadImage.onchange = (event) => {    //Функція обробник події - у змінну event прилітає інформація
 
             const { target } = event;
-            console.log("Select image", target); //target - сам об'єкт на якому виникла подія
+            //console.log("Select image", target); //target - сам об'єкт на якому виникла подія
             const { files } = target;
-            console.log("Select files", files);
+            //console.log("Select files", files);
+            const file = files[0];
+            if (file) {
+                if (/^image\/\w+/.test(file.type)) {
+
+                    console.log("uploadedImageURL", uploadedImageURL);
+                    if (uploadedImageURL) {
+                        URL.revokeObjectURL(uploadedImageURL);
+                    }
+
+                    image.src = uploadedImageURL = URL.createObjectURL(file);
+
+                    if (cropper) {
+                        cropper.destroy();
+                    }
+
+                    cropper = new Cropper(image, {
+                        aspectRatio: 1, // співідношення сторін 1/1 тобто квадрат
+                        viewMode: 1 //режим відображення
+                    });
+                }
+                else {
+                    window.alert('Please choose an image file.');
+                }
+            }
         }
 
-        //uploadImage.addEventListener('change', function (event) {
-        //    const file = event.target.files[0];
-        //    if (file) {
-        //        const reader = new FileReader();
-        //        reader.onload = function (e) {
-        //            image.src = e.target.result;
-        //            if (cropper) {
-        //                cropper.destroy(); // Destroy previous instance
-        //            }
-        //            cropper = new Cropper(image, {
-        //                aspectRatio: 1, // Square crop
-        //                viewMode: 1
-        //            });
-        //        };
-        //        reader.readAsDataURL(file);
-        //    }
-        //});
-
-        //cropButton.addEventListener('click', function () {
-        //    if (cropper) {
-        //        const canvas = cropper.getCroppedCanvas();
-        //        croppedCanvas.width = canvas.width;
-        //        croppedCanvas.height = canvas.height;
-        //        croppedCanvas.getContext('2d').drawImage(canvas, 0, 0);
-        //    }
-        //});
     </script>
-    <!--<script src="/site.js"></script>-->
 </body>
 </html>
