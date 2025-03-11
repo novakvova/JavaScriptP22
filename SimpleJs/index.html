@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Привіт JS</title>
+    <link href="/css/site.css" rel="stylesheet" />
+    <link href="/css/cropper.min.css" rel="stylesheet" />
+    <style>
+        .container {
+            max-width: 500px;
+            margin: auto;
+            text-align: center;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+            margin: auto;
+        }
+
+        canvas {
+            border: 1px solid #ccc;
+            margin-top: 10px;
+        }
+    </style>
+
+</head>
+<body>
+    <h1>Привіт JavaScript!</h1>
+
+    <div class="container">
+        <input type="file" id="uploadImage">
+        <br><br>
+        <img id="image" src="/images/redhead.jpg" alt="Upload an image">
+        <!--<br>-->
+        <!--<button id="cropButton">Crop</button>-->
+        <!--<br><br>-->
+        <!--<canvas id="croppedCanvas"></canvas>-->
+    </div>
+
+    <!--<script src="/js/cropper.min.js"></script>-->
+    <script src="/js/cropper.min.js"></script>
+    <script>
+        let cropper;
+        const image = document.getElementById('image');
+        const uploadImage = document.getElementById('uploadImage');
+        //const cropButton = document.getElementById('cropButton');
+        //const croppedCanvas = document.getElementById('croppedCanvas');
+        uploadImage.onchange = (event) => {    //Функція обробник події - у змінну event прилітає інформація
+
+            const { target } = event;
+            console.log("Select image", target); //target - сам об'єкт на якому виникла подія
+            const { files } = target;
+            console.log("Select files", files);
+        }
+
+        //uploadImage.addEventListener('change', function (event) {
+        //    const file = event.target.files[0];
+        //    if (file) {
+        //        const reader = new FileReader();
+        //        reader.onload = function (e) {
+        //            image.src = e.target.result;
+        //            if (cropper) {
+        //                cropper.destroy(); // Destroy previous instance
+        //            }
+        //            cropper = new Cropper(image, {
+        //                aspectRatio: 1, // Square crop
+        //                viewMode: 1
+        //            });
+        //        };
+        //        reader.readAsDataURL(file);
+        //    }
+        //});
+
+        //cropButton.addEventListener('click', function () {
+        //    if (cropper) {
+        //        const canvas = cropper.getCroppedCanvas();
+        //        croppedCanvas.width = canvas.width;
+        //        croppedCanvas.height = canvas.height;
+        //        croppedCanvas.getContext('2d').drawImage(canvas, 0, 0);
+        //    }
+        //});
+    </script>
+    <!--<script src="/site.js"></script>-->
+</body>
+</html>
