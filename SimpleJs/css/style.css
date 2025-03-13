@@ -4,12 +4,12 @@
 
 }
 .my-container{
-    margin: 15% 50px 0 50px;
+    margin: 0px 25px 0 0px;
 }
 @media only screen and (max-width: 1400px) {
 
     .my-container {
-        margin: 15% 0 0 0;
+        margin: 0px 0 0 0;
     }
 }
 

@@ -6,23 +6,29 @@
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
     <link href="/css/cropper.min.css" rel="stylesheet" />
     <script src="/js/site.js"></script>
-    <title></title>
+    <title>Реєстрація</title>
 </head>
 <body>
     <script src="/js/cropper.min.js"></script>
     <link href="/css/style.css" rel="stylesheet"/>
-    <div class="my-container" style="margin-top:20%">
+    <div class="my-container">
             
         <div class="p-6 space-y-4 md:space-y-6 sm:p-8 max-w-3xl">
             <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
                 Create an account
             </h1>
-            <form class="space-y-4 md:space-y-6" action="#">
+            <form class="space-y-4 md:space-y-6" action="#" id="formRegister">
                 <img id="avatar" style="width:100px; height:100px; margin:auto auto 5px auto" class=" rounded-full" src="/images/no-avatar.png" alt="Bordered avatar">
 
-                <button  id="chooseBT" data-modal-target="photoModal" style="margin:auto; cursor:pointer" data-modal-toggle="photoModal" class="block text-white bg-pink-600  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
+                <button id="chooseBT" data-modal-target="photoModal" style="margin:auto; cursor:pointer" data-modal-toggle="photoModal" class="block text-white bg-pink-600  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
                     Choose avatar
                 </button>
+
+                <div>
+                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Your name</label>
+                    <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " placeholder="Іван Васильович" required="">
+                </div>
+
                 <div>
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Your email</label>
                     <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " placeholder="name@company.com" required="">

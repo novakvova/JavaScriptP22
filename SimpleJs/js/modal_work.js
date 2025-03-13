@@ -9,6 +9,27 @@ var uploadImage = document.getElementById('uploadImage');
 const leftRotate = document.getElementById('leftRotate');
 const rightRotate = document.getElementById('rightRotate');
 
+const formRegister = document.getElementById("formRegister");
+
+formRegister.onsubmit = (e) => {
+    e.preventDefault(); //відмінити станартну повіденку форми
+    const formData = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value,
+        avatar: document.getElementById("avatar").src
+    }
+    const oldItems = JSON.parse(localStorage.users ?? "[]");
+    console.log("Old list", oldItems);
+
+    let items = [...oldItems, formData];
+
+    let json = JSON.stringify(items);
+    localStorage.setItem("users", json);
+    //localStorage.users = json;
+    console.log("Submit form", json);
+    location.href = "/users.html"; //переходимо на іншу сторінку сайту
+}
 
 
 leftRotate.onclick = function (e) {
