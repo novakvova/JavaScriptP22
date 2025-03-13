@@ -2,100 +2,58 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Привіт JS</title>
-    <link href="/css/site.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
     <link href="/css/cropper.min.css" rel="stylesheet" />
-    <style>
-        .container {
-            max-width: 500px;
-            margin: auto;
-            text-align: center;
-        }
-
-        img {
-            max-width: 100%;
-            display: block;
-            margin: auto;
-        }
-
-    </style>
-
+    <script src="/js/site.js"></script>
+    <title></title>
 </head>
 <body>
-    <h1>Привіт JavaScript!</h1>
-
-    <div class="container">
-        <button id="leftRotate">Left rotate</button>
-        <button id="getData">GetData</button>
-        <input type="file" id="uploadImage" accept="image/*">
-        <br><br>
-        <img id="image" src="/images/redhead.jpg" alt="Upload an image">
-    </div>
-
     <script src="/js/cropper.min.js"></script>
-    <script>
-        let cropper;
-        let uploadedImageURL;
-        const leftRotate = document.getElementById("leftRotate");
-        const image = document.getElementById('image');
-        const uploadImage = document.getElementById('uploadImage');
-        const getData = document.getElementById('getData');
+    <link href="/css/style.css" rel="stylesheet"/>
+    <div class="my-container" style="margin-top:20%">
+            
+        <div class="p-6 space-y-4 md:space-y-6 sm:p-8 max-w-3xl">
+            <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
+                Create an account
+            </h1>
+            <form class="space-y-4 md:space-y-6" action="#">
+                <img id="avatar" style="width:100px; height:100px; margin:auto auto 5px auto" class=" rounded-full" src="/images/no-avatar.png" alt="Bordered avatar">
 
-        cropper = new Cropper(image, {
-            aspectRatio: 1, // співідношення сторін 1/1 тобто квадрат
-            viewMode: 1 //режим відображення
-        });
+                <button  id="chooseBT" data-modal-target="photoModal" style="margin:auto; cursor:pointer" data-modal-toggle="photoModal" class="block text-white bg-pink-600  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
+                    Choose avatar
+                </button>
+                <div>
+                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Your email</label>
+                    <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " placeholder="name@company.com" required="">
+                </div>
+                <div>
+                    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                    <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " required="">
+                </div>
+                <div>
+                    <label for="confirm-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
+                    <input type="password" name="confirm-password" id="confirm-password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " required="">
+                </div>
+                <div class="flex items-start">
+                    <div class="flex items-center h-5">
+                        <input id="terms" aria-describedby="terms" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-pink-300" required="">
+                    </div>
+                    <div class="ml-3 text-sm">
+                        <label for="terms" class="font-light text-gray-500">
+                            I accept the
+                            <a class="font-medium text-pink-600 hover:underline" href="#">Terms and Conditions</a>
+                        </label>
+                    </div>
+                </div>
 
-        leftRotate.onclick = function (e) {
-            if (cropper) {
-                cropper.rotate(90);
-            }
-        }
-
-        getData.onclick = function(e) {
-            if (cropper) {
-                var base64 = cropper.getCroppedCanvas().toDataURL();
-                cropper.getCroppedCanvas().toBlob(function (blob) {
-                    var file_blob = new File([blob], "some_random_file_name.jpg");
-                    console.log("file: ", file_blob);
-                });
-                console.log("Get data url", base64);
-                //console.log("Get blob image", blob);
-            }
-        }
-
-        uploadImage.onchange = (event) => {    //Функція обробник події - у змінну event прилітає інформація
-
-            const { target } = event;
-            //console.log("Select image", target); //target - сам об'єкт на якому виникла подія
-            const { files } = target;
-            //console.log("Select files", files);
-            const file = files[0];
-            if (file) {
-                if (/^image\/\w+/.test(file.type)) {
-
-                    console.log("uploadedImageURL", uploadedImageURL);
-                    if (uploadedImageURL) {
-                        URL.revokeObjectURL(uploadedImageURL);
-                    }
-
-                    image.src = uploadedImageURL = URL.createObjectURL(file);
-
-                    if (cropper) {
-                        cropper.destroy();
-                    }
-
-                    cropper = new Cropper(image, {
-                        aspectRatio: 1, // співідношення сторін 1/1 тобто квадрат
-                        viewMode: 1 //режим відображення
-                    });
-                }
-                else {
-                    window.alert('Please choose an image file.');
-                }
-            }
-        }
-
-    </script>
+                <button style="cursor:pointer" type="submit" class="w-full text-white bg-pink-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Create an account</button>
+                <p class="text-sm font-light text-gray-500">
+                    Already have an account? <a href="#" class="font-medium text-blue-600 hover:underline">Login here</a>
+                </p>
+            </form>
+        </div>
+    </div>
+        <script>loadDOM('/partials/modal_photo.html')</script>
 </body>
 </html>

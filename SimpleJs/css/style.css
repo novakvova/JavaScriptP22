@@ -1,0 +1,28 @@
+﻿body {
+    padding-left: 35%;
+    padding-right: 35%;
+
+}
+.my-container{
+    margin: 15% 50px 0 50px;
+}
+@media only screen and (max-width: 1400px) {
+
+    .my-container {
+        margin: 15% 0 0 0;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    body {
+        padding-left: 30%;
+        padding-right: 30%;
+    }
+
+}
+@media only screen and (max-width: 992px){
+    body {
+        padding-left: 20%;
+        padding-right: 20%;
+    }
+}
