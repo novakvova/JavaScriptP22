@@ -19,16 +19,48 @@ formRegister.onsubmit = (e) => {
         password: document.getElementById("password").value,
         avatar: document.getElementById("avatar").src
     }
-    const oldItems = JSON.parse(localStorage.users ?? "[]");
-    console.log("Old list", oldItems);
 
-    let items = [...oldItems, formData];
+    const xhr = new XMLHttpRequest();
+    const url = "https://goose.itstep.click/api/Account/register"; //443 // Replace with your actual API URL
 
-    let json = JSON.stringify(items);
-    localStorage.setItem("users", json);
-    //localStorage.users = json;
-    console.log("Submit form", json);
-    location.href = "/users.html"; //переходимо на іншу сторінку сайту
+    // Prepare the data
+    const data = {
+        email: document.getElementById("email").value,
+        firstName: document.getElementById("name").value,
+        secondName: document.getElementById("name").value,
+        photo: document.getElementById("avatar").src,
+        phone: "+1234567890",
+        password: document.getElementById("password").value,
+        confirmPassword: document.getElementById("password").value
+    };
+
+    // Open a connection
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    // Handle response
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                console.log("Success:", xhr.responseText);
+            } else {
+                console.error("Error:", xhr.status, xhr.responseText);
+            }
+        }
+    };
+
+    // Send request
+    xhr.send(JSON.stringify(data));
+    //const oldItems = JSON.parse(localStorage.users ?? "[]");
+    //console.log("Old list", oldItems);
+
+    //let items = [...oldItems, formData];
+
+    //let json = JSON.stringify(items);
+    //localStorage.setItem("users", json);
+    ////localStorage.users = json;
+    //console.log("Submit form", json);
+    //location.href = "/users.html"; //переходимо на іншу сторінку сайту
 }
 
 

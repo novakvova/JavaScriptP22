@@ -61,6 +61,14 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true,
         ClockSkew = TimeSpan.Zero
     };
+})
+.AddGoogle(opt =>
+{
+    //opt.ClientId = "62751843627-3hvrb4vhojmd60im3q708b1usgoob3ka.apps.googleusercontent.com";
+    opt.ClientId = "796507215676-0vbbdt783daqei6gmmb665337eiqq6v6.apps.googleusercontent.com";
+    //opt.ClientSecret = "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";
+    opt.ClientSecret = "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";
+    opt.SignInScheme = IdentityConstants.ExternalScheme;
 });
 
 builder.Services.AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<Program>());
