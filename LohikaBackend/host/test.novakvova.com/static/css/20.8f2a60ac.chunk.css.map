@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/components/adminPanel/OrderList/list.css"],"names":[],"mappings":"AAAA,yBACC,UACD,CACA,YACC,UACD","file":"20.8f2a60ac.chunk.css","sourcesContent":[".p-accordion-header-text {\r\n\twidth: 100% ;\r\n}\r\n.p-dropdown {\r\n\tcolor: white\r\n}"]}
