@@ -7,6 +7,8 @@ using LohikaBackend.Exceptions;
 using LohikaBackend.Helpers;
 using LohikaBackend.Models;
 using Microsoft.AspNetCore.Identity;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
 
 namespace LohikaBackend.Services
 {
@@ -45,14 +47,35 @@ namespace LohikaBackend.Services
                 {
                     if (model.Photo != null)
                     {
-                        string randomFilename = Path.GetRandomFileName() +
-                            ".jpeg";
-                        string pathSaveImages = InitStaticFiles
-                            .CreateImageByFileName(_env, _configuration,
-                                new string[] { "Folder" },
-                                randomFilename, model.Photo, false, false);
+                        fileName = $"{Guid.NewGuid()}.jpg";
+                        if (model.Photo.Contains(','))
+                            model.Photo = model.Photo.Split(',')[1];
 
-                        user.Photo = randomFilename;
+                        byte[] byteArray = Convert.FromBase64String(model.Photo);
+
+                        // Читаємо байти як зображення
+                        using Image image = Image.Load(byteArray);
+
+                        // Масштабуємо зображення до 200x200
+                        image.Mutate(x => x.Resize(
+                            new ResizeOptions
+                            {
+                                Size = new Size(600, 600), // Максимальний розмір
+                                Mode = ResizeMode.Max // Зберігає пропорції без обрізання
+                            }
+                        ));
+
+                        string folderName = "images";
+                        string pathFolder = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+                        // Шлях до збереження файлу
+                        string outputFilePath = Path.Combine(pathFolder, fileName);
+
+                        // Зберігаємо файл у вказаному форматі
+                        image.Save(outputFilePath);
+
+
+                        user.Photo = fileName;
                     }
                 }
 
