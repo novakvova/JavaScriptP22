@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
     <link href="/css/cropper.min.css" rel="stylesheet" />
@@ -11,12 +12,13 @@
 </head>
 <body>
     <script src="/js/cropper.min.js"></script>
-    <link href="/css/style.css" rel="stylesheet" />
+<!--    <link href="/css/style.css" rel="stylesheet" />-->
 
-    <div class="my-container">
+    <script>loadDOM('/partials/header.html')</script>
+    <div class="flex justify-center">
 
         <div class="p-6 space-y-4 md:space-y-6 sm:p-8 max-w-3xl">
-            <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
+            <h1 class="text-center text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
                 Create an account
             </h1>
             <form class="space-y-4 md:space-y-6" action="#" id="formRegister">
