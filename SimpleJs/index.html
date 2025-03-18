@@ -6,13 +6,15 @@
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
     <link href="/css/cropper.min.css" rel="stylesheet" />
     <script src="/js/site.js"></script>
-    <title>Реєстрація</title>
+
+    <title>Sign up</title>
 </head>
 <body>
     <script src="/js/cropper.min.js"></script>
-    <link href="/css/style.css" rel="stylesheet"/>
+    <link href="/css/style.css" rel="stylesheet" />
+
     <div class="my-container">
-            
+
         <div class="p-6 space-y-4 md:space-y-6 sm:p-8 max-w-3xl">
             <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
                 Create an account
@@ -20,30 +22,54 @@
             <form class="space-y-4 md:space-y-6" action="#" id="formRegister">
                 <img id="avatar" style="width:100px; height:100px; margin:auto auto 5px auto" class=" rounded-full" src="/images/no-avatar.png" alt="Bordered avatar">
 
-                <button id="chooseBT" data-modal-target="photoModal" style="margin:auto; cursor:pointer" data-modal-toggle="photoModal" class="block text-white bg-pink-600  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
+                <button id="chooseBT" data-modal-target="photoModal" data-modal-toggle="photoModal" style="margin:auto; cursor:pointer" class="block text-white bg-pink-600  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
                     Choose avatar
                 </button>
-
                 <div>
                     <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Your name</label>
-                    <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " placeholder="Іван Васильович" required="">
+                    <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " placeholder="Peter">
                 </div>
-
+                <div>
+                    <label hidden id="nameError" class="error  block w-full">error</label>
+                </div>
+                <div>
+                    <label for="surname" class="block mb-2 text-sm font-medium text-gray-900">Your surname</label>
+                    <input type="text" name="surname" id="surname" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " placeholder="Parker">
+                </div>
+                <div>
+                    <label hidden id="surnameError" class="error  block w-full">error</label>
+                </div>
                 <div>
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Your email</label>
-                    <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " placeholder="name@company.com" required="">
+                    <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " placeholder="name@company.com">
                 </div>
                 <div>
-                    <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                    <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " required="">
+                    <label hidden id="emailError" class="error  block w-full">error</label>
                 </div>
                 <div>
-                    <label for="confirm-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
-                    <input type="password" name="confirm-password" id="confirm-password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " required="">
+                    <label for="phone" class="block mb-2 text-sm font-medium text-gray-900">Your phone</label>
+                    <input type="tel" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " placeholder="+380(00-00-00-000)">
                 </div>
+                <div>
+                    <label hidden id="phoneError" class="error  block w-full">error</label>
+                </div>
+                <div class="flex gap-12 justify-center">
+                    <div>
+                        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                        <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ">
+                    </div>
+                    <div>
+                        <label for="confirmPassword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
+                        <input type="password" name="confirmPassword" id="confirmPassword" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 ">
+                    </div>
+                </div>
+                <div>
+                    <label hidden id="passwordError" class="error  block w-full">error</label>
+                </div>
+
                 <div class="flex items-start">
                     <div class="flex items-center h-5">
-                        <input id="terms" aria-describedby="terms" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-pink-300" required="">
+                        <input id="terms" aria-describedby="terms" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-pink-300">
                     </div>
                     <div class="ml-3 text-sm">
                         <label for="terms" class="font-light text-gray-500">
@@ -60,6 +86,8 @@
             </form>
         </div>
     </div>
-        <script>loadDOM('/partials/modal_photo.html')</script>
+    <script>loadDOM('/partials/modal_photo.html')</script>
+    <script src="/js/signUp_work.js"></script>
+
 </body>
 </html>

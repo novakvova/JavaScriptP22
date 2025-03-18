@@ -1,15 +1,20 @@
 ﻿body {
     padding-left: 35%;
     padding-right: 35%;
+}
 
+.my-container {
+    margin: 0 50px 0 50px;
 }
-.my-container{
-    margin: 0px 25px 0 0px;
+
+.error{
+    color:red;
 }
+
 @media only screen and (max-width: 1400px) {
 
     .my-container {
-        margin: 0px 0 0 0;
+        margin: 0 0 0 0;
     }
 }
 
@@ -18,9 +23,9 @@
         padding-left: 30%;
         padding-right: 30%;
     }
-
 }
-@media only screen and (max-width: 992px){
+
+@media only screen and (max-width: 992px) {
     body {
         padding-left: 20%;
         padding-right: 20%;
