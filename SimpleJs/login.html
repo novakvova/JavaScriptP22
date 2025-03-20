@@ -11,7 +11,8 @@
     <title>Login</title>
 </head>
 <body>
-<!--    <link href="/css/style.css" rel="stylesheet" />-->
+    <!--    <link href="/css/style.css" rel="stylesheet" />-->
+    <script>loadDOM('/partials/loading.html')</script>
 
     <script>loadDOM('/partials/header.html')</script>
     <div class="flex justify-center">
@@ -20,7 +21,7 @@
             <h1 class="text-center text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
                 Login user
             </h1>
-            <form class="space-y-4 md:space-y-6" action="#" id="formRegister">
+            <form class="space-y-4 md:space-y-6" action="#" id="formLogin">
                 <div>
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Your email</label>
                     <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " placeholder="name@company.com">
@@ -39,14 +40,14 @@
                 </div>
 
 
-                <button style="cursor:pointer" type="submit" class="w-full text-white bg-pink-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Create an account</button>
+                <button id="login" style="cursor:pointer" type="submit" class="w-full text-white bg-pink-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center ">Login</button>
                 <p class="text-sm font-light text-gray-500">
-                    Already have an account? <a href="#" class="font-medium text-blue-600 hover:underline">Login here</a>
+                    Don`t have an account? <a href="/register.html" class="font-medium text-blue-600 hover:underline">Sign up here</a>
                 </p>
             </form>
         </div>
     </div>
-    <script src="/js/signUp_work.js"></script>
+    <script src="/js/login_work.js"></script>
 
 </body>
 </html>

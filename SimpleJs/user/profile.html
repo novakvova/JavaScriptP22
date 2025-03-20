@@ -17,9 +17,9 @@
 
     <script>loadDOM('/partials/loading.html')</script>
 
+    <script>loadDOM('/partials/header.html')</script>
+
     <div class="w-[85%] mx-auto">
-
-
 
         <div class="flex items-center justify-center min-h-screen w-full">
             <div class="bg-white p-8 rounded-2xl shadow-xl w-[90%] max-w-4xl flex items-center justify-center grid lg:grid-cols-2 gap-6">
@@ -40,7 +40,7 @@
     </div>
 
     <script>
-        document.getElementById("loading-overlay").classList.remove("hidden");
+        show_loading();
         const token = localStorage.getItem("token"); // Отримуємо токен
         axios.get('https://goose.itstep.click/api/Account/profile', {
             headers: {
@@ -60,7 +60,7 @@
             .catch(err => {
                 console.log("Error", err);
             })
-            .finally(() => document.getElementById("loading-overlay").classList.add("hidden"));
+            .finally(() => hide_loading());
     </script>
 
     <!-- <script>

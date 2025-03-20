@@ -4,3 +4,12 @@
         <p class="text-white text-lg font-semibold">Loading...</p>
     </div>
 </div>
+
+<script>
+    const show_loading = () => {
+        document.getElementById("loading-overlay").classList.remove("hidden");
+    }
+    const hide_loading = () => {
+        document.getElementById("loading-overlay").classList.add("hidden");
+    }
+</script>
