@@ -6,7 +6,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+    
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="/js/site.js"></script>
     <title>Профіль користувача</title>
@@ -20,7 +20,6 @@
     <script>loadDOM('/partials/header.html')</script>
 
     <div class="w-[85%] mx-auto">
-
         <div class="flex items-center justify-center min-h-screen w-full">
             <div class="bg-white p-8 rounded-2xl shadow-xl w-[90%] max-w-4xl flex items-center justify-center grid lg:grid-cols-2 gap-6">
                 <img id="userPhoto"
@@ -34,44 +33,51 @@
                         <strong>Email:</strong> <span id="userEmail">user@example.com</span>
                     </p>
                     <p class="text-gray-600 text-xl"><strong>Phone:</strong> <span id="userPhone">+1234567890</span></p>
+
+                    <!-- Кнопка Logout -->
+                    <button onclick="logout()"
+                            class="mt-6 bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded-full shadow-lg transition">
+                        Вихід
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        show_loading();
-        const token = localStorage.getItem("token"); // Отримуємо токен
-        axios.get('https://goose.itstep.click/api/Account/profile', {
-            headers: {
-                'accept': '*/*',
-                'Authorization': `Bearer ${token}`
-            }
-        })
-            .then(resp => {
-                const { data } = resp;
-                const { id, email, firstName, secondName, phone, photo } = data;
-                document.getElementById("userPhoto").src = `https://goose.itstep.click/images/${photo}`;
-                document.getElementById("userName").innerText = `${secondName} ${firstName}`;
-                document.getElementById("userEmail").innerText = ` ${email}`;
-                document.getElementById("userPhone").innerText = ` ${phone}`;
-                console.log("User profile", data);
-            })
-            .catch(err => {
-                console.log("Error", err);
-            })
-            .finally(() => hide_loading());
+        function logout() {
+            localStorage.removeItem("token");
+            //alert("Ви вийшли з акаунту!"); // Тут можна додати реальну логіку виходу
+            window.location.href = "/login.html"; // Перенаправлення на сторінку входу
+        }
     </script>
 
-    <!-- <script>
-        const token = localStorage.getItem("token"); // Отримуємо токен
-        if (token) {
-            const decoded = jwt_decode(token); // Розбираємо токен
-            console.log(decoded); // Вивід у консоль
-        } else {
-            console.log("Токен не знайдено");
+
+    <script>
+        if (localStorage.getItem("token")) {
+            show_loading();
+            axios.get('https://goose.itstep.click/api/Account/profile', {
+                headers: {
+                    'accept': '*/*',
+                    'Authorization': `Bearer ${localStorage.getItem("token")}`
+                }
+            })
+                .then(resp => {
+                    const { data } = resp;
+                    const { id, email, firstName, secondName, phone, photo } = data;
+                    document.getElementById("userPhoto").src = `https://goose.itstep.click/images/${photo}`;
+                    document.getElementById("userName").innerText = `${secondName} ${firstName}`;
+                    document.getElementById("userEmail").innerText = ` ${email}`;
+                    document.getElementById("userPhone").innerText = ` ${phone}`;
+                    console.log("User profile", data);
+                })
+                .catch(err => {
+                    console.log("Error", err);
+                })
+                .finally(() => hide_loading());
         }
-    </script> -->
+
+    </script>
 
 </body>
 
