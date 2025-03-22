@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link href="/css/style.css" rel="stylesheet" />
     <title></title>
 </head>
@@ -12,35 +13,95 @@
     <script>loadDOM('/partials/header.html');</script>
     <script>loadDOM('/partials/asideAdminPanel.html');</script>
 
-    <div id="addItemPage" style="margin:10% 35% 0 45%">
-        <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
+    <div id="addItemPage" style="margin:20px 50px 0 300px">
 
-            <form class="p-4 md:p-5">
-                <div class="grid gap-4 mb-4 grid-cols-2">
-                    <div class="col-span-2">
-                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                        <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " placeholder="Type item name" required="">
-                    </div>
-                    <div class="col-span-2 sm:col-span-1">
-                        <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
-                        <input type="number" name="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 " placeholder="$999" required="">
-                    </div>
-                    <div class="col-span-2 sm:col-span-1">
-                        <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
-                        <select id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 ">
-                        </select>
-                    </div>
-                    <div class="col-span-2">
-                        <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Description</label>
-                        <textarea id="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write item description here"></textarea>
-                    </div>
-                </div>
-                <button style="cursor:pointer" class="text-white inline-flex items-center bg-pink-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                    <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                    Add new item
-                </button>
-            </form>
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-16 py-3">
+                            <span class="sr-only">Фото</span>
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Нзва
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Slug
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Пріорітет
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="listCategories">
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <td class="p-4">
+                            <img src="https://flowbite.com/docs/images/products/apple-watch.png" class="w-16 md:w-32 max-w-full max-h-full" alt="Apple Watch">
+                        </td>
+                        <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                            Apple Watch
+                        </td>
+                        <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                            sdfasfasf
+                        </td>
+
+                        <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                            1
+                        </td>
+                        <td class="px-6 py-4">
+                            <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+
     </div>
+
+    <script>
+        async function fetchCategories() {
+            try {
+                const response = await axios.get('https://goose.itstep.click/api/Categories/list', {
+                    headers: {
+                        'Accept': '*/*'
+                    }
+                });
+                const { data } = response;
+                const listCategories = document.getElementById("listCategories");
+                listCategories.innerHTML = "";
+                data.forEach(item => {
+                    //console.log("item", item);
+                    listCategories.innerHTML += `
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <td class="p-4">
+                                    <img src="https://goose.itstep.click/images/200_${item.image}" class="" alt="Apple Watch">
+                                </td>
+                                <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                                    ${item.title}
+                                </td>
+                                <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                                    ${item.urlSlug}
+                                </td>
+                            
+                                <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                                    ${item.priority}
+                                </td>
+                                <td class="px-6 py-4">
+                                    <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</a>
+                                </td>
+                            </tr>
+                    `;
+                });
+                //console.log("Server Result", data);
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+            }
+        }
+
+        fetchCategories();
+    </script>
 </body>
 </html>

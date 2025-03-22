@@ -54,19 +54,6 @@ namespace LohikaBackend.Controllers
 
                 entity = _mapper.Map<CategoryEntity>(model);
 
-                //if (model.Image != null)
-                //{
-                //    string randomFilename = Path.GetRandomFileName() +
-                //        Path.GetExtension(model.Image.FileName);
-
-                //    string dirPath = Path.Combine(Directory.GetCurrentDirectory(), "images");
-                //    fileName = Path.Combine(dirPath, randomFilename);
-                //    using (var file = System.IO.File.Create(fileName))
-                //    {
-                //        model.Image.CopyTo(file);
-                //    }
-                //    entity.Image = randomFilename;
-                //}
                 if (model.Image != null)
                 {
                     entity.Image = await _imageService.SaveImageAsync(model.Image);
@@ -93,6 +80,7 @@ namespace LohikaBackend.Controllers
             {
                 //Thread.Sleep(2000);
                 var model = await _context.Categories
+                    .OrderBy(x => x.Priority)
                     .Select(x => _mapper.Map<CategoryItemViewModel>(x))
                     .ToListAsync();
                 return Ok(model);
