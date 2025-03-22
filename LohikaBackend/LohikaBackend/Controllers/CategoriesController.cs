@@ -157,9 +157,7 @@ namespace LohikaBackend.Controllers
 
                 if (entity.Image != null)
                 {
-                    var directory = Path.Combine(Directory.GetCurrentDirectory(), "images");
-                    var FilePath = Path.Combine(directory, entity.Image);
-                    System.IO.File.Delete(FilePath);
+                    _imageService.DeleteImage(entity.Image);
                 }
 
                 _context.Categories.Remove(entity);
@@ -200,12 +198,8 @@ namespace LohikaBackend.Controllers
                     string fileName = String.Empty;
                     if (model.Image != null)
                     {
-                        string randomFilename = entity.Image;
-
-                        string pathSaveImages = InitStaticFiles
-                        .CreateImageByFileName(_env, _configuration,
-                            new string[] { "Folder" },
-                            randomFilename, model.Image, false, false);
+                        _imageService.DeleteImage(entity.Image);
+                        entity.Image = _imageService.SaveImageAsync(model.Image).Result;
                     }
                     _context.SaveChanges();
                     return Ok();
