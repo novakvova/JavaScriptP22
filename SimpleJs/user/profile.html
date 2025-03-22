@@ -65,7 +65,7 @@
                 .then(resp => {
                     const { data } = resp;
                     const { id, email, firstName, secondName, phone, photo } = data;
-                    document.getElementById("userPhoto").src = `https://goose.itstep.click/images/${photo}`;
+                    document.getElementById("userPhoto").src = `https://goose.itstep.click/images/400_${photo}`;
                     document.getElementById("userName").innerText = `${secondName} ${firstName}`;
                     document.getElementById("userEmail").innerText = ` ${email}`;
                     document.getElementById("userPhone").innerText = ` ${phone}`;

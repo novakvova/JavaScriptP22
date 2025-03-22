@@ -20,13 +20,15 @@ namespace LohikaBackend.Services
         private readonly AppEFContext _context;
         private readonly IWebHostEnvironment _env;
         private readonly IConfiguration _configuration;
+        private readonly IImageService _imageService;
         public UserService(
             UserManager<AppUser> userManager,
             IJwtTokenService jwtTokenService,
             AppEFContext context,
             IMapper mapper,
             IWebHostEnvironment env,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            IImageService imageService)
         {
             _mapper = mapper;
             _userManager = userManager;
@@ -34,6 +36,7 @@ namespace LohikaBackend.Services
             _context = context;
             _env = env;
             _configuration = configuration;
+            _imageService = imageService;
         }
         public async Task<string> CreateUser(RegisterViewModel model)
         {
@@ -47,33 +50,7 @@ namespace LohikaBackend.Services
                 {
                     if (model.Photo != null)
                     {
-                        fileName = $"{Guid.NewGuid()}.jpg";
-                        if (model.Photo.Contains(','))
-                            model.Photo = model.Photo.Split(',')[1];
-
-                        byte[] byteArray = Convert.FromBase64String(model.Photo);
-
-                        // Читаємо байти як зображення
-                        using Image image = Image.Load(byteArray);
-
-                        // Масштабуємо зображення до 200x200
-                        image.Mutate(x => x.Resize(
-                            new ResizeOptions
-                            {
-                                Size = new Size(600, 600), // Максимальний розмір
-                                Mode = ResizeMode.Max // Зберігає пропорції без обрізання
-                            }
-                        ));
-
-                        string folderName = "images";
-                        string pathFolder = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-
-                        // Шлях до збереження файлу
-                        string outputFilePath = Path.Combine(pathFolder, fileName);
-
-                        // Зберігаємо файл у вказаному форматі
-                        image.Save(outputFilePath);
-
+                        fileName = await _imageService.SaveImageAsync(model.Photo);
 
                         user.Photo = fileName;
                     }
