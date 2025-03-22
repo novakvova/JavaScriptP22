@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Data.LohikaBackend;
 using Data.LohikaBackend.Entities;
+using LohikaBackend.Abastract;
 using LohikaBackend.Constants;
 using LohikaBackend.Helpers;
 using LohikaBackend.Models;
@@ -21,16 +22,20 @@ namespace LohikaBackend.Controllers
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _env;
         private readonly IConfiguration _configuration;
+        private readonly IImageService _imageService;
+        
         public CategoriesController(AppEFContext context,
             IMapper mapper,
             IWebHostEnvironment env, 
-            IConfiguration configuration)
+            IConfiguration configuration,
+            IImageService imageService)
         {
             //Thread.Sleep(2000);
             _context = context;
             _mapper = mapper;
             _env = env;
             _configuration = configuration;
+            _imageService = imageService;
         }
         [HttpPost]
         [Route("add")]
@@ -39,7 +44,15 @@ namespace LohikaBackend.Controllers
             try
             {
                 string fileName = String.Empty;
-                var entity = _mapper.Map<CategoryEntity>(model);
+
+                var entity = _context.Categories
+                    .SingleOrDefault(x => x.UrlSlug == model.UrlSlug);
+                if (entity != null)
+                {
+                    return BadRequest(new { error = "Даний category url уже є!" });
+                }
+
+                entity = _mapper.Map<CategoryEntity>(model);
 
                 //if (model.Image != null)
                 //{
@@ -56,14 +69,7 @@ namespace LohikaBackend.Controllers
                 //}
                 if (model.Image != null)
                 {
-                    string randomFilename = Path.GetRandomFileName() +
-                        ".jpeg";
-                    string pathSaveImages = InitStaticFiles
-                        .CreateImageByFileName(_env, _configuration,
-                            new string[] { "Folder" },
-                            randomFilename, model.Image, false, false);
-
-                    entity.Image = randomFilename;
+                    entity.Image = await _imageService.SaveImageAsync(model.Image);
                 }
                 _context.Categories.Add(entity);
                 await _context.SaveChangesAsync();
