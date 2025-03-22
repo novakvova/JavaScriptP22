@@ -1,0 +1,85 @@
+﻿
+<aside id="default-sidebar" class="fixed top-12 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 " aria-label="Sidenav">
+    <div class="overflow-y-auto py-5 px-3 h-full bg-pink-200 border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+        <ul class="space-y-2">
+            <li>
+                <div>
+                    <img class="w-24" src="/images/adminIcon.png" style="margin:auto" />
+                    <br />
+                    <h2 id="adminName" class="text-blue-500 font-bold" style="display:flex; justify-content:center"></h2>
+                </div>
+            </li>
+        </ul>
+        <ul class="pt-5 mt-5 space-y-2 border-t border-white">
+            <li>
+                <button type="button" class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 " aria-controls="dropdown-pages" data-collapse-toggle="dropdown-pages">
+                    <img src="/images/categories.png" aria-hidden="true" class="flex-shrink-0 w-6 h-6 text-gray-400 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" />
+                    <span class="flex-1 ml-3 text-left whitespace-nowrap">Categories</span>
+                    <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+
+                </button>
+                <ul id="dropdown-pages" class="hidden py-2 space-y-2">
+                    <li>
+                        <a href="#" id="addCategory" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 ">Add</a>
+                    </li>
+                    <li>
+                        <a href="/pages/admin/adminPanel.html" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100">Edit</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <button type="button" class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 " aria-controls="dropdown-sales" data-collapse-toggle="dropdown-sales">
+                    <img src="/images/itemsIcon.png" aria-hidden="true" class="flex-shrink-0 w-6 h-6 text-gray-400 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" />
+                    <span class="flex-1 ml-3 text-left whitespace-nowrap">Items</span>
+                    <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+
+                </button>
+                <ul id="dropdown-sales" class="hidden py-2 space-y-2">
+                    <li>
+                        <a href="#" id="addItem" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Add</a>
+                    </li>
+                    <li>
+                        <a href="/pages/admin/adminPanel.html" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Edit</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="/pages/admin/adminPanel.html" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group">
+                    <img src="/images/filter.png" aria-hidden="true" class="flex-shrink-0 w-6 h-6 text-gray-400 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" />
+                    <span class="ml-3">Filters</span>
+                </a>
+            </li>
+            <li>
+                <a href="/pages/admin/adminPanel.html" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group">
+                    <img src="/images/usersIcon.png" aria-hidden="true" class="flex-shrink-0 w-6 h-6 text-gray-400 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" />
+                    <span class="ml-3">Users</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="pt-5 mt-5 space-y-2 border-t border-white">
+            <li>
+                <a id="logoutBtn" href="/pages/login.html" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group">
+                    <img src="/images/logout.png" aria-hidden="true" class="flex-shrink-0 w-6 h-6 text-gray-400 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" />
+                    <span class="ml-3">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</aside>
+
+<script>
+        let user = null;
+        if (localStorage.getItem("token")) {
+            user = jwt_decode(localStorage.getItem("token"));
+        }
+        document.getElementById('adminName').textContent = user.name;
+</script>
+
+<script>
+    logoutBtn.onclick = (e) => {
+        e.preventDefault();
+        localStorage.removeItem('token');
+        window.location = "/login.html";
+    }
+
+</script>

@@ -1,33 +1,47 @@
-﻿body {
-    padding-left: 35%;
-    padding-right: 35%;
-}
-
+﻿﻿
 .my-container {
-    margin: 0 50px 0 50px;
+    margin-left: 35%;
+    margin-right: 35%;
 }
 
-.error{
-    color:red;
+.error {
+    color: red;
+}
+
+
+.login {
+    margin-top: 10%;
+}
+
+.account-image {
+    width: 50px;
+    height: 50px;
 }
 
 @media only screen and (max-width: 1400px) {
-
-    .my-container {
-        margin: 0 0 0 0;
+    .password {
+        width: 180px;
     }
 }
 
 @media only screen and (max-width: 1200px) {
-    body {
-        padding-left: 30%;
-        padding-right: 30%;
+    .my-container {
+        margin-left: 30%;
+        margin-right: 30%;
+    }
+
+    .password {
+        width: 150px;
     }
 }
 
 @media only screen and (max-width: 992px) {
-    body {
-        padding-left: 20%;
-        padding-right: 20%;
+    .my-container {
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+
+    .password {
+        width: 120px;
     }
 }
