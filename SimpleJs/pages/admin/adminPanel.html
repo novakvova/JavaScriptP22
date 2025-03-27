@@ -17,12 +17,20 @@
     <br/>
     <div id="addItemPage" style="margin:80px 50px 0 300px">
 
-        <div class="relative z-0 w-full mb-5 mt-6 group">
-            <input type="text" name="name" id="name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
-            <label for="name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Назва</label>
-        </div>
+        <form id="formSearch">
 
-        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Шукати</button>
+            <div class="relative z-0 w-full mb-5 mt-6 group">
+                <input type="text" name="title" id="title" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                <label for="title" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Назва</label>
+            </div>
+
+            <div class="relative z-0 w-full mb-5 mt-6 group">
+                <input type="text" name="priority" id="priority" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                <label for="priority" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Пріорітет</label>
+            </div>
+
+            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Шукати</button>
+        </form>
 
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-6">
 
@@ -77,15 +85,60 @@
     </div>
 
     <script>
+
         let search = {
             page: 1,
             //title: 'а'
         };
 
+        document.addEventListener("DOMContentLoaded", function () {
+
+            //Отримуємо дані з url, бо тут воно сидить
+            let searchParams = {
+                page: new URLSearchParams(window.location.search).get('page') || 1,
+                title: new URLSearchParams(window.location.search).get('title') || '',
+                priority: new URLSearchParams(window.location.search).get('priority') || '',
+            };
+
+            document.getElementById('title').value = searchParams.title;
+            document.getElementById('priority').value = searchParams.priority;
+
+            search = {
+                ...search, ...searchParams
+            };
+
+            fetchCategories();
+
+            console.log("DOM завантажений, але ресурси (зображення, стилі) можуть ще вантажитися.");
+        });
+
+
+
+        const formSearch = document.getElementById('formSearch');
+        formSearch.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const formData = new FormData(formSearch);
+            const values = {};
+
+            for (const [name, value] of formData.entries()) {
+                values[name] = value;
+            }
+
+            search = {...search, ...values, page: 1};
+
+            // Фільтруємо об'єкт, виключаючи порожні значення
+            search = Object.fromEntries(
+                Object.entries(search).filter(([_, value]) => value !== null && value !== undefined && value !== "")
+            );
+            history.pushState(null, null, `?${Qs.stringify(search)}`);
+
+            fetchCategories();
+        });
+
         async function fetchCategories() {
             try {
-                // var qs = require('qs');
-                //console.log("qs", Qs.stringify(search));
+                
                 const query = Qs.stringify(search);
                 const response = await axios.get(`https://goose.itstep.click/api/Categories/search?${query}`, {
                     headers: {
@@ -122,6 +175,14 @@
                             </tr>
                     `;
                 });
+
+                // document.getElementById("pageContent").scrollTo({
+                //     top: 0,
+                //     behavior: 'smooth'
+                // });
+
+                window.scrollTo(0, 0);
+
                 searchDataPage();
 
                 //console.log("Server Result", data);
@@ -130,7 +191,7 @@
             }
         }
 
-        fetchCategories();
+        
 
         function searchDataPage()
         {
