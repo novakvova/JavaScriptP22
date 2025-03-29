@@ -174,7 +174,7 @@
                                     <a href="categories/editCategory.html?id=${item.id}" class="font-medium text-green-600 dark:text-green-500 hover:underline">
                                         <i class="fa fa-3x fa-pencil-square-o" aria-hidden="true"></i>
                                     </a> 
-                                    <a href="${item.id}" class="font-medium text-red-600 dark:text-red-500 hover:underline">
+                                    <a href="#" data-delete="${item.id}" data-delete-name="${item.title}" class="font-medium text-red-600 dark:text-red-500 hover:underline">
                                         <i class="fa fa-3x fa-times" aria-hidden="true"></i>
                                     </a>
                                 </td>
@@ -182,12 +182,10 @@
                     `;
                 });
 
-                // document.getElementById("pageContent").scrollTo({
-                //     top: 0,
-                //     behavior: 'smooth'
-                // });
 
                 window.scrollTo(0, 0);
+
+                deleteDataItem();
 
                 searchDataPage();
 
@@ -197,6 +195,19 @@
             }
         }
 
+
+        function deleteDataItem() {
+            document.querySelectorAll('[data-delete]').forEach(element => {
+                element.addEventListener('click', event => {
+                    event.preventDefault(); // Запобігаємо переходу за посиланням
+                    console.log("event.target", event.target);
+                    const link = event.target.closest('a[data-delete]'); 
+                    const deleteId = link.getAttribute('data-delete'); // Отримуємо значення data-page
+                    const deleteName = link.getAttribute('data-delete-name'); // Отримуємо значення data-page
+                    console.log('Delete By Id:', deleteId, deleteName);
+                });
+            });
+        }
         
 
         function searchDataPage()
