@@ -6,6 +6,7 @@
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.14.0/qs.min.js" integrity="sha512-6yLIYbXqyvjSDYNO1pgBRjwWPBw66kMOb+sHqrvn457+iJiret0PeHzUlpLKHH0fYzX9bxGtPDqQ84xKrhEYSQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="/css/style.css" rel="stylesheet" />
     <title></title>
 </head>
@@ -170,7 +171,12 @@
                                     ${item.priority}
                                 </td>
                                 <td class="px-6 py-4">
-                                    <a href="${item.id}" class="font-medium text-red-600 dark:text-red-500 hover:underline">Remove</a>
+                                    <a href="categories/editCategory.html?id=${item.id}" class="font-medium text-green-600 dark:text-green-500 hover:underline">
+                                        <i class="fa fa-3x fa-pencil-square-o" aria-hidden="true"></i>
+                                    </a> 
+                                    <a href="${item.id}" class="font-medium text-red-600 dark:text-red-500 hover:underline">
+                                        <i class="fa fa-3x fa-times" aria-hidden="true"></i>
+                                    </a>
                                 </td>
                             </tr>
                     `;
