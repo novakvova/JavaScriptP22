@@ -7,36 +7,20 @@ const category = localStorage.getItem('categoryEdit');
 categoryForm.onsubmit = (e) => {
     ClearErrors();
     e.preventDefault();
-    let newImage;
+    let newImage = null;
 
-    if (document.getElementById('avatar').src == `https://goose.itstep.click/images/100_${JSON.parse(category).image}`) {
-
-        var img = new Image();
-        img.src = document.getElementById('avatar').src;
-        img.setAttribute('crossOrigin', 'anonymous');
-        img.onload = function () {
-            var canvas = document.createElement("canvas");
-            canvas.width = document.getElementById('avatar').width;
-            canvas.height = document.getElementById('avatar').height;
-            var ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0);
-            var dataURL = canvas.toDataURL("image/png");
-
-            newImage = dataURL.replace(/^data:image\/?[A-z]*;base64,/, "");
-        }
-
-
-    } else {
-        newImage = document.getElementById('avatar').src;
+    const avatarSrc = document.getElementById('avatar').src;
+    if (avatarSrc.startsWith("data:")) {
+        newImage = avatarSrc;
     }
 
     const xhr = new XMLHttpRequest();
 
     const data = {
-        id: JSON.parse(category).id,
+        id: new URLSearchParams(window.location.search).get('id') || null,
         title: document.getElementById("name").value,
         priority: document.getElementById("priority").value,
-        image: newImage,
+        ...(newImage !== null && { image: newImage }), // Додаємо поле image тільки якщо newImage !== null
         urlSlug: document.getElementById("slug").value
     };
     const url = `https://goose.itstep.click/api/Categories/edit?${data}`;
@@ -66,8 +50,7 @@ categoryForm.onsubmit = (e) => {
         if (xhr.readyState === 4) {
             if (xhr.status >= 200 && xhr.status < 300) {
                 const resp = xhr.responseText;
-                localStorage.removeItem('categoryEdit');
-                location.href = "/pages/admin/categories/categories.html";
+                location.href = "/pages/admin/adminPanel.html";
 
 
             } else {
@@ -99,6 +82,8 @@ function ClearErrors() {
     imageError.hidden = true;
 }
 
+show_loading();
+
 window.addEventListener('load', async () => {
 
     const id = new URLSearchParams(window.location.search).get('id') || null;
@@ -115,4 +100,6 @@ window.addEventListener('load', async () => {
     document.getElementById('name').value = data.title;
     document.getElementById('priority').value = data.priority;
     document.getElementById('slug').value = data.urlSlug;
+
+    hide_loading()
 });
