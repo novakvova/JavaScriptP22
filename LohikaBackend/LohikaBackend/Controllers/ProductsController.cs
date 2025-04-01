@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Data.LohikaBackend;
 using Data.LohikaBackend.Entities;
+using LohikaBackend.Abastract;
 using LohikaBackend.Constants;
 using LohikaBackend.Helpers;
 using LohikaBackend.Models;
@@ -20,15 +21,18 @@ namespace LohikaBackend.Controllers
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _env;
         private readonly IConfiguration _configuration;
+        private readonly IImageService _imageService;
         public ProductsController(AppEFContext context,
             IWebHostEnvironment env, IConfiguration configuration,
-            IMapper mapper)
+            IMapper mapper,
+            IImageService imageService)
         {
             //Thread.Sleep(2000);
             _context = context;
             _env = env;
             _configuration = configuration;
             _mapper = mapper;
+            _imageService = imageService;
         }
         [HttpPost]
         [Route("add")]
@@ -83,15 +87,9 @@ namespace LohikaBackend.Controllers
 
                 if (model.Image != null)
                 {
-                    string randomFilename = Path.GetRandomFileName() +
-                        ".jpeg";
-                    string pathSaveImages = InitStaticFiles
-                        .CreateImageByFileName(_env, _configuration,
-                            new string[] { "Folder" },
-                            randomFilename, model.Image, false, false);
-
-                    entity.Name = randomFilename;
+                    entity.Name = await _imageService.SaveImageAsync(model.Image);
                 }
+
                 _context.ProductImages.Add(entity);
                 await _context.SaveChangesAsync();
                 var result = new ProductImageItemViewModel
