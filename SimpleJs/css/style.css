@@ -1,5 +1,5 @@
 ﻿
-/*div[style*="height: 65px;"] {
+div[style*="height: 65px;"] {
     display: none;
 }
 
@@ -9,10 +9,10 @@ div[style*="opacity: 0.9; z-index: 2147483647; position: fixed; left: 0px; botto
 
 center {
     display: none !important;
-}*/
+}
 
 .Category {
-    margin: 8% 35% 0 45%
+    margin: 8% 35% 0 45%;
 }
 
 .my-container {
