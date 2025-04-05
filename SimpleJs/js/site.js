@@ -4,3 +4,5 @@
     xhr.send();
     document.write(xhr.response);
 }
+
+window.API_BASE_URL = 'https://goose.itstep.click';

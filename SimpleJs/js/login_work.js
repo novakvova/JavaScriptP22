@@ -5,7 +5,7 @@ formRegister.onsubmit = (e) => {
     ClearErrors();
     e.preventDefault();
     const xhr = new XMLHttpRequest();
-    const url = "https://goose.itstep.click/api/Account/login";
+    const url = `${window.API_BASE_URL}/api/Account/login`;
 
     const data = {
         email: document.getElementById("email").value,

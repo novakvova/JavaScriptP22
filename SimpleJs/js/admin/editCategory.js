@@ -23,7 +23,7 @@ categoryForm.onsubmit = (e) => {
         ...(newImage !== null && { image: newImage }), // Додаємо поле image тільки якщо newImage !== null
         urlSlug: document.getElementById("slug").value
     };
-    const url = `https://goose.itstep.click/api/Categories/edit?${data}`;
+    const url = `${window.API_BASE_URL}/api/Categories/edit?${data}`;
 
 
     xhr.open("PUT", url, true);

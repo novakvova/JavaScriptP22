@@ -7,7 +7,7 @@ categoryForm.onsubmit = (e) => {
     ClearErrors();
     e.preventDefault();
     const xhr = new XMLHttpRequest();
-    const url = "https://goose.itstep.click/api/Categories/add";
+    const url = `${window.API_BASE_URL}/api/Categories/add`;
 
     const data = {
         title: document.getElementById("name").value,

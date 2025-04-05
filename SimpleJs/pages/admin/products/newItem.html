@@ -96,7 +96,7 @@
                     show_loading();
                     let data = await UploadImage(file, objectURL);
                     imageContainer.innerHTML += `
-                            <img class="w-full h-24 p-1 rounded-lg shadow-lg"  src="https://goose.itstep.click/images/100_${data.name}"/>
+                            <img class="w-full h-24 p-1 rounded-lg shadow-lg"  src="${window.API_BASE_URL}/images/100_${data.name}"/>
                             `;
                     ids.push(data.id);
                     hide_loading();
@@ -121,7 +121,7 @@
                         URL.revokeObjectURL(objectURL);
 
 
-                        const response = await axios.post('https://goose.itstep.click/api/Products/upload', {
+                        const response = await axios.post(`${window.API_BASE_URL}/api/Products/upload`, {
                             image: base64String
                         }, {
                             headers: {
@@ -147,7 +147,7 @@
         document.addEventListener("DOMContentLoaded", async () => {
             console.log("Load Dom");
             try {
-                var list = await axios.get("https://goose.itstep.click/api/Categories/list");
+                var list = await axios.get(`${window.API_BASE_URL}/api/Categories/list`);
                 const { data } = list;
 
                 const selectElement = document.getElementById('category');
@@ -205,7 +205,7 @@
                 ids
             }
             console.log("Content:", request);
-            let response = await axios.post('https://goose.itstep.click/api/Products/add', request, {
+            let response = await axios.post(`${window.API_BASE_URL}/api/Products/add`, request, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': '*/*'
