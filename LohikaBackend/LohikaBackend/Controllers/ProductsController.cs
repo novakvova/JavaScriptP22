@@ -214,16 +214,9 @@ namespace LohikaBackend.Controllers
 
                 if (product.ProductImages != null)
                 {
-                    string[] imageSizes = ((string)_configuration.GetValue<string>("ImageSizes")).Split(" ");
                     foreach (var image in product.ProductImages)
                     {
-                        foreach (var size in imageSizes)
-                        {
-                            var directory = Path.Combine(Directory.GetCurrentDirectory(), "images");
-                            var FilePath = Path.Combine(directory, size+"_"+image.Name);
-                            if (System.IO.File.Exists(FilePath))
-                                System.IO.File.Delete(FilePath);
-                        }
+                        _imageService.DeleteImage(image.Name);
                         _context.ProductImages.Remove(image);
                     }
                     await _context.SaveChangesAsync();
