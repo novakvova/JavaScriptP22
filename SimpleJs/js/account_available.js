@@ -14,7 +14,7 @@ function ChangeMenu() {
             userNav.innerHTML = `
     <button id="accountButton" type="button" class="flex text-lg bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 " id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
     <a href="/pages/user/profile.html">
-            <img id="accountImage" class="account-image rounded-full" src="https://goose.itstep.click/images/${user.image}" alt="user photo">
+            <img id="accountImage" class="account-image rounded-full" src="${window.API_BASE_URL}/images/${user.image}" alt="user photo">
 
     </a>
     </button>

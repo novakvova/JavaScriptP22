@@ -89,14 +89,14 @@ window.addEventListener('load', async () => {
     const id = new URLSearchParams(window.location.search).get('id') || null;
     console.log("id", id);
 
-    const response = await axios.get(`https://goose.itstep.click/api/Categories/get/${id}`, {
+    const response = await axios.get(`${window.API_BASE_URL}/api/Categories/get/${id}`, {
         headers: {
             'Accept': '*/*'
         }
     });
     const { data } = response;
 
-    document.getElementById('avatar').src = `https://goose.itstep.click/images/100_${data.image}`;
+    document.getElementById('avatar').src = `${window.API_BASE_URL}/images/100_${data.image}`;
     document.getElementById('name').value = data.title;
     document.getElementById('priority').value = data.priority;
     document.getElementById('slug').value = data.urlSlug;
