@@ -261,7 +261,7 @@ namespace LohikaBackend.Controllers
                     product.Description = model.Description;
                     product.CategoryId = model.CategoryId;
                     string fileName = String.Empty;
-                    string[] imageSizes = ((string)_configuration.GetValue<string>("ImageSizes")).Split(" ");
+                    string[] imageSizes = _configuration.GetRequiredSection("ImageSizes").Get<List<string>>().ToArray();
                     foreach (var image in product.ProductImages)
                     {
                         if(!model.ids.Any(x=>x==image.Id))
